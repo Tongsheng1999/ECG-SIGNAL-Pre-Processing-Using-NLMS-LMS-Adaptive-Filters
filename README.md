@@ -53,29 +53,34 @@ In LMS algorithm, a choice of larger steps sizes makes the algorithm to fluctuat
 Comparing NLMS with the LMS recursion, we find that the update direction in LMS is a scaled version of the reference vector X. The “size” of the change to Wk-1 will therefore be in proportion to the norm of X. In this way, a vector Xk with a large norm will generally lead to a more substantial change to Wk-1than a vector with a small norm. Such behavior can have an adverse effect on the performance of LMS. In NLMS, a correction term that is added to Wk-1 in the NLMS recursion is normalized with respect to the squared-norm of the regressor Xk. Moreover, the positive constant ∈ in the denominator avoids division by zero or by a small number when ||X|| is zero or close to zero. In addition, NLMS employs a time-variant step-size of the form μ(k) = μ/(∈ + ||Xk||2), as opposed to the constant step-size, μ, which is used by LMS. Due to these factors, NLMS is expected to exhibit a better performance and faster convergence behavior than LMS. 
 The data used in this project is taken from the MIT-BIH Noise Stress Test Database[3]. The noise recordings were made using physically active volunteers and standard ECG recorders, leads, and electrodes; the electrodes were placed on the limbs in positions in which the subjects’ ECGs were not visible. The three noise records were assembled from the recordings by selecting intervals that contained predominantly baseline wander, muscle artifact, and electrode motion artifact. Noise was added beginning after the first 5 minutes of each record, during two-minute segments alternating with two-minute clean segments. Figure 3 below exhibits the clean and noisy signals used in this project. The signal-to-noise ratios (SNRs) of all the signals used in this project is provided in this database as well.
 
-![image](https://user-images.githubusercontent.com/32316270/51080771-22296b00-16a7-11e9-95f8-ab7225d05b26.png) 
+![image](https://user-images.githubusercontent.com/32316270/51080771-22296b00-16a7-11e9-95f8-ab7225d05b26.png)
+
 Figure 4: Clean and Noisy signal from MIT-BIH Database
 
 As mentioned above, the noise is embedded after 5 minutes and every other 2 minutes after as shown here. As such, the signal in the first 2 minutes (after the 5min.) is extracted and used here as the primary noisy input for analysis. Moreover, the pure baseline wander, EMG and motion artifact noise signals, which are used to construct the noisy signal, are also provided in the dataset.
 In the NLMS filter portion of the analysis, both the noiseless signal and pure noises were used to compare the performance of the NLMS filter against itself. When using the pure noises as a reference, the noisy signal was first filtered to eliminate the baseline wander noise from the signal. Then, the sum of the muscle and EMG artifacts was used to completely filter the noisy signal. As shown in fig 4. Below, the NLMS algorithm converged smoothly, and the noisy signal is slightly improved. To quantify this improvement the SNR values of the signals were utilized. The SNR value of the noisy signal was confirmed to increase from 2.39dB to 3.1dB.
 
 ![image](https://user-images.githubusercontent.com/32316270/51080772-28b7e280-16a7-11e9-8858-d2188e568485.png)
+
 Figure 5: NLMS Filter – Baseline Wander Filtered
 
 The second filtering step of NLMS filtering was aimed at eliminating the remaining artifacts in the signal. Figure 5 below depicts the result. As it can be observed, the final output showed significant improvement, and this is reflected in an improvement of the overall SNR from 3.1dB to 3.7dB. 
 
 ![image](https://user-images.githubusercontent.com/32316270/51080779-39685880-16a7-11e9-84b2-5cf20c16f665.png)
+
 Figure 6: NLMS Filter – Completely Filtered Signal
 
 On the other hand, when the noiseless ECG signal is used as reference to filter, the results showed significant improvement compared to the above approach. The difference is visually detectable, and the results are given in fig. 6 below. The SNR value has also improved to 4.23dB. Although it is not possible to make any generalizations, it was interesting to notice the difference in performance of the two different approaches of the NLMS adaptive filter. However, a lot can be concluded when comparing the NLMS and LMS algorithms. 
 Due to the above results, the pure ECG signal was used as a reference for the LMS adaptive filter. As expected, it was found that the NLMS filter is significantly better than that of the LMS. The output of the LMS filter is exhibited in figure 7 below.
 
-![image](https://user-images.githubusercontent.com/32316270/51080781-4422ed80-16a7-11e9-8714-17eb1221a989.png) 
+![image](https://user-images.githubusercontent.com/32316270/51080781-4422ed80-16a7-11e9-8714-17eb1221a989.png)
+
 Figure 7: LMS Filter – Completely Filtered Signal
 
 Although it is challenging to visually notice the variations of the LMS and NLMS filters, the difference is apparent in the SNR values. The LMS filtered signal produced SNR value of 3.9dB as opposed to the 4.23dB final SNR value of the NLMS filter. Moreover, as depicted in figure 8 below, the NLMS converged faster than the LMS filter.
 
-![image](https://user-images.githubusercontent.com/32316270/51080786-4e44ec00-16a7-11e9-9dd1-28275e0c7882.png) 
+![image](https://user-images.githubusercontent.com/32316270/51080786-4e44ec00-16a7-11e9-9dd1-28275e0c7882.png)
+
 Figure 8: Convergence NLMS vs LMS
 
 
